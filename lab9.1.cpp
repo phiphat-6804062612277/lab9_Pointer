@@ -1,45 +1,46 @@
 #include <stdio.h>
-//function prototype
-void swapValue(int *a, int *b, int *c);
-//void swapArray(int a[], int b[], int size);  or
-void swapArray(int *a, int *b, int size); 
+#define NMAX 10
+//functions prototype
+void inputArray(int array[], int N);
+void showArray2D(int matrix[][10], int N);
+void constructMatrix(int P[][10], int N, int A[], int B[]);
 
-int main() {
-	int a = 1, b = 2, c = 3;
-	printf("Before swap function: a=%d, b=%d, c=%d\n", a, b, c);
-	swapValue( &a , &b , &c );
-	printf("After swap function: a=%d, b=%d, c=%d\n", a, b, c);
-	//calling swapArray()
-	int ar1[]= {5,9,3},ar2[]={6,89,4},i;
-	printf("Before\nar1 = ");
-	for(i=0;i<3;i++){
-		printf("%d ",ar1[i]);
-	}
-	printf("\nar2 = ");
-	for(i=0;i<3;i++){
-		printf("%d ",ar2[i]);
-	}
-	swapArray(ar1,ar2,3);
-	printf("\nAfter\nar1 = ");
-	for(i=0;i<3;i++){
-		printf("%d ",ar1[i]);
-	}
-	printf("\nar2 = ");
-	for(i=0;i<3;i++){
-		printf("%d ",ar2[i]);
-	}
+int main() {  
+    int a[NMAX], b[NMAX], p[NMAX][NMAX], n;
+    printf("Enter N = ");       	
+    scanf("%d", &n);
+    printf("Input array A \n"); 	
+    inputArray(a, n);
+    printf("Input array B \n");
+    inputArray(b, n);
+    constructMatrix(p, n, a, b);
+    printf("Matrix P \n");
+    showArray2D(p, n);
+    return 0;
 }
-void swapValue(int *a, int *b, int *c){
-	int br = *a;
-	*a = *b;
-	*b = *c;
-	*c = br;
+//functions definition
+void inputArray(int array[],int N){
+    int input,i;
+    printf("Enter %d integers: ",N);
+    for (i=0;i<N;i++){
+        scanf("%d",&input);
+        array[i] = input;
+    }
 }
-void swapArray(int *a, int *b, int size){
-	int temp,i;
-	for(i=0;i<size;i++){
-		temp = a[i];
-		a[i] = b[i];
-		b[i] = temp;
-	}
+void constructMatrix(int P[][10], int N, int A[], int B[]){
+    int i,j;
+    for (i=0;i<N;i++){
+        for(j=0;j<N;j++){
+            P[i][j] = A[i] * B[j];
+        }
+    }
+}
+void showArray2D(int matrix[][10], int N){
+    int i,j;
+    for (i=0;i<N;i++){
+        for(j=0;j<N;j++){
+            printf("%d ",matrix[i][j]);
+        }
+        printf("\n");
+    }
 }
